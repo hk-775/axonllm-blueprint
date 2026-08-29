@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" role="img" aria-labelledby="title desc">
+  <title id="title">AxonLLM Blueprint mark</title>
+  <desc id="desc">A connected four-node letter A representing an infrastructure blueprint.</desc>
+  <rect width="96" height="96" rx="24" fill="#07111f"/>
+  <rect x="2" y="2" width="92" height="92" rx="22" fill="none" stroke="#48d9d2" stroke-opacity=".35" stroke-width="2"/>
+  <path d="M24 68 39 28h18l15 40M31 55h34" fill="none" stroke="#48d9d2" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  <g fill="#07111f" stroke="#9af3ed" stroke-width="3">
+    <circle cx="24" cy="68" r="6"/>
+    <circle cx="39" cy="28" r="6"/>
+    <circle cx="57" cy="28" r="6"/>
+    <circle cx="72" cy="68" r="6"/>
+  </g>
+</svg>

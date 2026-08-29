@@ -1,0 +1,28 @@
+{
+  "name": "@axonllm/blueprint",
+  "version": "0.1.0-beta.1",
+  "private": true,
+  "description": "Bedrock-powered infrastructure design, IaC generation, configuration review, and troubleshooting.",
+  "license": "MIT-0",
+  "engines": {
+    "node": ">=22.23.2",
+    "npm": ">=10"
+  },
+  "scripts": {
+    "setup": "npm --prefix backend ci && npm --prefix frontend ci",
+    "build": "npm run build:backend && npm run build:frontend",
+    "build:backend": "npm --prefix backend run build",
+    "build:frontend": "npm --prefix frontend run build",
+    "dev": "npm run dev:backend",
+    "dev:backend": "npm --prefix backend run dev",
+    "dev:frontend": "npm --prefix frontend run dev",
+    "test": "npm run test:backend && npm run test:frontend",
+    "test:backend": "npm --prefix backend test",
+    "test:frontend": "npm --prefix frontend test",
+    "audit:dependencies": "npm --prefix backend audit --audit-level=high && npm --prefix frontend audit --audit-level=high",
+    "audit:signatures": "npm --prefix backend audit signatures && npm --prefix frontend audit signatures",
+    "secret:scan": "sh scripts/secret-scan.sh",
+    "typecheck": "npm --prefix backend run typecheck && npm --prefix frontend run typecheck",
+    "verify": "npm run secret:scan && npm run typecheck && npm test && npm run build"
+  }
+}

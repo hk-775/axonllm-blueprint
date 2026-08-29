@@ -1,0 +1,114 @@
+<mxfile host="app.diagrams.net" modified="2026-08-29T02:10:00.000Z" agent="Codex" version="28.2.8">
+  <diagram id="blueprint-architecture-v4" name="Architecture">
+    <mxGraphModel dx="1280" dy="720" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="800" math="0" shadow="0" adaptiveColors="auto">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <mxCell id="title" value="&lt;b&gt;AxonLLM Blueprint&lt;/b&gt;&lt;br&gt;&lt;font color=&quot;#5f6f82&quot;&gt;Identity-bound Bedrock reasoning with a human deployment gate&lt;/font&gt;" style="text;html=1;align=left;verticalAlign=middle;fontSize=22;fontColor=#122033;" vertex="1" parent="1">
+          <mxGeometry x="40" y="20" width="760" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="user" value="&lt;b&gt;Infrastructure engineer&lt;/b&gt;&lt;br&gt;&lt;font color=&quot;#60758a&quot;&gt;Briefs, IaC, configs, logs&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#eef7ff;strokeColor=#5b8fc9;fontColor=#17324d;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="40" y="160" width="140" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="client" value="Access and client workspace" style="swimlane;startSize=32;rounded=1;fillColor=#f4fbff;strokeColor=#83a9c8;fontColor=#17324d;fontStyle=1;html=1;" vertex="1" parent="1">
+          <mxGeometry x="220" y="100" width="260" height="360" as="geometry"/>
+        </mxCell>
+        <mxCell id="react" value="&lt;b&gt;React + Vite UI&lt;/b&gt;&lt;br&gt;&lt;font color=&quot;#60758a&quot;&gt;Guided workflows, Markdown, model profile&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e8f8fb;strokeColor=#40b8bf;fontColor=#17324d;fontSize=12;" vertex="1" parent="client">
+          <mxGeometry x="50" y="55" width="160" height="75" as="geometry"/>
+        </mxCell>
+        <mxCell id="authproxy" value="&lt;b&gt;Trusted auth proxy&lt;/b&gt;&lt;br&gt;&lt;font color=&quot;#60758a&quot;&gt;Strips spoofed header · injects identity&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#edf8f0;strokeColor=#4d9a62;fontColor=#17324d;fontSize=10;" vertex="1" parent="client">
+          <mxGeometry x="50" y="140" width="160" height="35" as="geometry"/>
+        </mxCell>
+        <mxCell id="review" value="&lt;b&gt;Human review gate&lt;/b&gt;&lt;br&gt;&lt;font color=&quot;#60758a&quot;&gt;Inspect assumptions and output&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff7e8;strokeColor=#d6a54a;fontColor=#503c18;fontSize=12;" vertex="1" parent="client">
+          <mxGeometry x="50" y="185" width="160" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="validation" value="Native validation tools&#xa;cfn-lint · terraform validate · cdk synth" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8f6ff;strokeColor=#9280cf;fontColor=#40376b;fontSize=11;" vertex="1" parent="client">
+          <mxGeometry x="50" y="285" width="160" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="service" value="AxonLLM Blueprint service · Node.js 22" style="swimlane;startSize=32;rounded=1;fillColor=#f7fafc;strokeColor=#70889f;fontColor=#17324d;fontStyle=1;html=1;" vertex="1" parent="1">
+          <mxGeometry x="520" y="100" width="500" height="520" as="geometry"/>
+        </mxCell>
+        <mxCell id="api" value="&lt;b&gt;Express API&lt;/b&gt;&lt;br&gt;&lt;font color=&quot;#60758a&quot;&gt;CSP · no-store · identity hash&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#eaf2fb;strokeColor=#5c87b5;fontColor=#17324d;fontSize=12;" vertex="1" parent="service">
+          <mxGeometry x="40" y="55" width="170" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="requestguard" value="&lt;b&gt;Request guard&lt;/b&gt;&lt;br&gt;&lt;font color=&quot;#60758a&quot;&gt;Schema · model allowlist · principal rate limit&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff4f5;strokeColor=#ce7782;fontColor=#5b2630;fontSize=12;" vertex="1" parent="service">
+          <mxGeometry x="285" y="55" width="170" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="prompt" value="&lt;b&gt;Prompt engine&lt;/b&gt;&lt;br&gt;&lt;font color=&quot;#60758a&quot;&gt;Intent · IaC format · trusted system policy&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#eafaf6;strokeColor=#3da886;fontColor=#17324d;fontSize=12;" vertex="1" parent="service">
+          <mxGeometry x="40" y="175" width="170" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="session" value="&lt;b&gt;Session manager&lt;/b&gt;&lt;br&gt;&lt;font color=&quot;#60758a&quot;&gt;Principal-bound · bounded memory · TTL&lt;/font&gt;" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;fillColor=#f1efff;strokeColor=#8674c4;fontColor=#40376b;fontSize=12;" vertex="1" parent="service">
+          <mxGeometry x="285" y="170" width="170" height="80" as="geometry"/>
+        </mxCell>
+        <mxCell id="credentials-v4" value="&lt;b&gt;AWS credential chain&lt;/b&gt;&lt;br&gt;&lt;font color=&quot;#60758a&quot;&gt;Profile · workload role · temporary credentials&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff8e8;strokeColor=#d2a147;fontColor=#503c18;fontSize=12;" vertex="1" parent="service">
+          <mxGeometry x="40" y="295" width="170" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="bedrockclient-v4" value="&lt;b&gt;Bedrock Runtime client&lt;/b&gt;&lt;br&gt;&lt;font color=&quot;#60758a&quot;&gt;Converse API · adaptive retry · maxAttempts 5&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e8faf5;strokeColor=#31a282;fontColor=#17324d;fontSize=12;" vertex="1" parent="service">
+          <mxGeometry x="285" y="295" width="170" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="safety" value="Advisory output only · no autonomous deployment · no secret retrieval" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#edf3f8;strokeColor=#93a7b9;fontColor=#52677c;fontSize=11;" vertex="1" parent="service">
+          <mxGeometry x="130" y="415" width="240" height="45" as="geometry"/>
+        </mxCell>
+        <mxCell id="aws" value="AWS account and Region" style="swimlane;startSize=32;rounded=1;fillColor=#fffaf1;strokeColor=#d1993d;fontColor=#4f3a17;fontStyle=1;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1060" y="100" width="260" height="360" as="geometry"/>
+        </mxCell>
+        <mxCell id="bedrock" value="Amazon Bedrock&#xa;Foundation model / inference profile" style="sketch=0;points=[[0,0,0],[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0,0],[0,1,0],[0.25,1,0],[0.5,1,0],[0.75,1,0],[1,1,0],[0,0.25,0],[0,0.5,0],[0,0.75,0],[1,0.25,0],[1,0.5,0],[1,0.75,0]];outlineConnect=0;fontColor=#17324d;fillColor=#01A88D;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=1;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.bedrock;" vertex="1" parent="aws">
+          <mxGeometry x="91" y="65" width="78" height="78" as="geometry"/>
+        </mxCell>
+        <mxCell id="iam" value="&lt;b&gt;IAM authorization&lt;/b&gt;&lt;br&gt;&lt;font color=&quot;#735c32&quot;&gt;bedrock:InvokeModel&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2d9;strokeColor=#d1993d;fontColor=#4f3a17;fontSize=11;" vertex="1" parent="aws">
+          <mxGeometry x="145" y="230" width="100" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="deploy" value="&lt;b&gt;Deployment tools&lt;/b&gt;&lt;br&gt;&lt;font color=&quot;#60758a&quot;&gt;Out of scope; explicitly invoked by the engineer&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;dashed=1;fillColor=#f8fafc;strokeColor=#94a4b5;fontColor=#35495e;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="220" y="560" width="260" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="note" value="Production requires a trusted auth proxy or explicit local-demo acknowledgement. Scale-out adopters should add shared sessions, distributed rate limiting, and deployment controls." style="shape=note;whiteSpace=wrap;html=1;fillColor=#f7f9fb;strokeColor=#aab7c4;fontColor=#5c6f82;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="1060" y="520" width="260" height="100" as="geometry"/>
+        </mxCell>
+        <mxCell id="e1" value="Brief / evidence" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#5f7890;fontColor=#5f7890;fontSize=10;endArrow=classic;" edge="1" source="user" target="react" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e2a" value="Authenticate" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#4d9a62;fontColor=#397548;fontSize=10;endArrow=classic;" edge="1" source="react" target="authproxy" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e2" value="Verified identity + JSON" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#5f7890;fontColor=#5f7890;fontSize=10;startArrow=none;endArrow=classic;" edge="1" source="authproxy" target="api" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e3" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#6c8297;endArrow=classic;" edge="1" source="api" target="requestguard" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e4" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#6c8297;endArrow=classic;" edge="1" source="requestguard" target="prompt" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e5" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#8674c4;fontColor=#65558e;fontSize=10;endArrow=classic;" edge="1" source="session" target="prompt" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e6" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#3da886;fontColor=#287b63;fontSize=10;endArrow=classic;" edge="1" source="prompt" target="bedrockclient-v4" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e7" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#d2a147;fontColor=#8a681e;fontSize=10;endArrow=classic;" edge="1" source="credentials-v4" target="bedrockclient-v4" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e8" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#1f9d7c;fontColor=#287b63;fontSize=10;strokeWidth=2;endArrow=classic;" edge="1" source="bedrockclient-v4" target="bedrock" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e9" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#d1993d;fontColor=#8a681e;fontSize=10;endArrow=classic;" edge="1" source="iam" target="bedrock" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e11" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#d6a54a;endArrow=classic;exitX=0;exitY=0.85;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" source="react" target="review" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="255" y="219"/>
+              <mxPoint x="255" y="320"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e12" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#9280cf;endArrow=classic;" edge="1" source="review" target="validation" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e13" value="Explicit action" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;dashed=1;strokeColor=#8294a6;fontColor=#6a7c8d;fontSize=10;endArrow=classic;" edge="1" source="validation" target="deploy" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
