@@ -2,6 +2,11 @@
 
 All notable changes are documented in this file.
 
+## Unreleased
+
+- Disabled automated dependency-update pull requests while retaining
+  vulnerability alerts and manual reviewed updates.
+
 ## 0.1.0-beta.1 - 2026-08-29
 
 - Introduced the AxonLLM Blueprint product identity and workbench UI.
