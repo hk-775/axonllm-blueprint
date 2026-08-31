@@ -12,7 +12,9 @@ import {
   ConfigPanel,
   type BlueprintSettings,
 } from './components/ConfigPanel';
+import { BrandMark } from './components/BrandMark';
 import { useChat } from './hooks/useChat';
+import { PUBLIC_SITE_MODE } from './runtimeMode';
 
 const INITIAL_SETTINGS: BlueprintSettings = {
   modelId: '',
@@ -59,25 +61,6 @@ const QUICK_STARTS = [
 ] as const;
 
 type ApiStatus = 'connecting' | 'ready' | 'offline';
-
-function BrandMark() {
-  return (
-    <svg
-      className="brand-mark"
-      viewBox="0 0 44 44"
-      role="img"
-      aria-label="AxonLLM Blueprint"
-    >
-      <rect x="1" y="1" width="42" height="42" rx="12" />
-      <path d="M11 29.5 17.6 13h8.8L33 29.5" />
-      <path d="M14.5 23.5h15" />
-      <circle cx="11" cy="29.5" r="2.4" />
-      <circle cx="17.6" cy="13" r="2.4" />
-      <circle cx="26.4" cy="13" r="2.4" />
-      <circle cx="33" cy="29.5" r="2.4" />
-    </svg>
-  );
-}
 
 function App() {
   const [models, setModels] = useState<ModelInfo[]>([]);
@@ -141,9 +124,17 @@ function App() {
   };
 
   return (
-    <div className="app-shell">
+    <div className={`app-shell${PUBLIC_SITE_MODE ? ' app-shell--public' : ''}`} data-public-workspace={PUBLIC_SITE_MODE || undefined}>
+      {PUBLIC_SITE_MODE && (
+        <div className="public-preview-strip">
+          <strong>Published synthetic preview</strong>
+          <span>No API, Bedrock, credentials, or cloud resources are used.</span>
+          <a href="#/">Overview</a>
+          <a href="#/architecture">Architecture</a>
+        </div>
+      )}
       <header className="topbar">
-        <div className="brand">
+        <a className="brand brand--link" href={PUBLIC_SITE_MODE ? '#/' : undefined}>
           <BrandMark />
           <div>
             <div className="brand__name">
@@ -153,14 +144,14 @@ function App() {
               Infrastructure reasoning on Amazon Bedrock
             </div>
           </div>
-        </div>
+        </a>
 
         <div className="topbar__meta">
-          <span className="family-label">AXONLLM / BUILD SYSTEMS</span>
+          <span className="family-label">{PUBLIC_SITE_MODE ? 'PUBLIC / SYNTHETIC' : 'AXONLLM / BUILD SYSTEMS'}</span>
           <span className={`api-status api-status--${apiStatus}`}>
             <span />
             {apiStatus === 'ready'
-              ? 'API ready'
+              ? PUBLIC_SITE_MODE ? 'Synthetic preview' : 'API ready'
               : apiStatus === 'offline'
                 ? 'API offline'
                 : 'Connecting'}
@@ -267,6 +258,7 @@ function App() {
           value={settings}
           region={region}
           loading={apiStatus !== 'ready'}
+          synthetic={PUBLIC_SITE_MODE}
           onApply={setSettings}
         />
       </div>

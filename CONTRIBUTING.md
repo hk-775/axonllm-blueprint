@@ -9,6 +9,8 @@ Thank you for improving AxonLLM Blueprint.
 3. Copy `backend/.env.example` to `backend/.env`.
 4. Create a focused branch.
 5. Run `npm run verify` before opening a pull request.
+6. Run `npm run verify:publication` when changing the frontend, diagrams, or
+   Pages workflow.
 
 ## Pull requests
 

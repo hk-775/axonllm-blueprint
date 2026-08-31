@@ -13,6 +13,7 @@
     "build": "npm run build:backend && npm run build:frontend",
     "build:backend": "npm --prefix backend run build",
     "build:frontend": "npm --prefix frontend run build",
+    "build:public": "npm --prefix frontend run build:public",
     "dev": "npm run dev:backend",
     "dev:backend": "npm --prefix backend run dev",
     "dev:frontend": "npm --prefix frontend run dev",
@@ -22,7 +23,10 @@
     "audit:dependencies": "npm --prefix backend audit --audit-level=high && npm --prefix frontend audit --audit-level=high",
     "audit:signatures": "npm --prefix backend audit signatures && npm --prefix frontend audit signatures",
     "secret:scan": "sh scripts/secret-scan.sh",
+    "test:public-site": "node scripts/test-public-site.mjs",
+    "validate:publication": "node scripts/validate-publication.mjs",
     "typecheck": "npm --prefix backend run typecheck && npm --prefix frontend run typecheck",
-    "verify": "npm run secret:scan && npm run typecheck && npm test && npm run build"
+    "verify": "npm run secret:scan && npm run typecheck && npm test && npm run build",
+    "verify:publication": "npm run verify && npm run build:public && npm run validate:publication && npm run test:public-site"
   }
 }

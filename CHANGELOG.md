@@ -6,6 +6,12 @@ All notable changes are documented in this file.
 
 - Disabled automated dependency-update pull requests while retaining
   vulnerability alerts and manual reviewed updates.
+- Added the canonical GitHub Pages experience with a deterministic,
+  browser-local workbench and interactive architecture.
+- Added a separate editable and rendered AWS services reference architecture,
+  clearly labeled as proposed and not deployed.
+- Added pinned Pages automation, publication validation, and a real-Chrome
+  network-boundary test.
 
 ## 0.1.0-beta.1 - 2026-08-29
 

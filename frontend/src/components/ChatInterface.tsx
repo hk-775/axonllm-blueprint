@@ -208,9 +208,19 @@ export function ChatInterface({
         {lastRun && (
           <div className="run-strip" aria-label="Last model run">
             <span>{INTENT_LABELS[lastRun.intent]}</span>
-            <span>{lastRun.usage.inputTokens.toLocaleString()} input</span>
-            <span>{lastRun.usage.outputTokens.toLocaleString()} output</span>
-            <span>{lastRun.stopReason.replaceAll('_', ' ')}</span>
+            {lastRun.synthetic ? (
+              <>
+                <span>Synthetic preview</span>
+                <span>Browser local</span>
+                <span>No model call</span>
+              </>
+            ) : (
+              <>
+                <span>{lastRun.usage.inputTokens.toLocaleString()} input</span>
+                <span>{lastRun.usage.outputTokens.toLocaleString()} output</span>
+                <span>{lastRun.stopReason.replaceAll('_', ' ')}</span>
+              </>
+            )}
           </div>
         )}
         <form className="composer" onSubmit={handleSubmit}>
