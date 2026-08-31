@@ -9,6 +9,25 @@ AxonLLM Blueprint is a two-tier TypeScript application:
 
 The editable source is [`assets/axonllm-blueprint-architecture.drawio`](assets/axonllm-blueprint-architecture.drawio).
 
+## AWS services reference architecture
+
+![Proposed AWS services reference](assets/axonllm-blueprint-aws-services-reference.png)
+
+The editable source is
+[`assets/axonllm-blueprint-aws-services-reference.drawio`](assets/axonllm-blueprint-aws-services-reference.drawio).
+It is a proposed production target, not evidence of deployed infrastructure.
+The repository currently ships no AWS IaC. The target maps the documented gaps
+to CloudFront and private S3 delivery, Cognito and API Gateway identity,
+ECS/Fargate runtime, DynamoDB shared state, private Bedrock connectivity,
+CloudWatch observability, and an explicitly approved delivery pipeline.
+
+## Published static mode
+
+Vite mode `public` renders the canonical React product with hash routes for the
+overview, synthetic workbench, and interactive architecture. Its API adapter is
+deterministic and browser-local. The normal build still uses `/api` and retains
+the production startup guard and trusted-proxy boundary.
+
 ## Request flow
 
 1. A trusted proxy authenticates production requests and injects a verified identity header.

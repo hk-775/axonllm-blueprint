@@ -1,3 +1,13 @@
+import {
+  publicCreateSession,
+  publicDeleteSession,
+  publicGetConfig,
+  publicGetHealth,
+  publicGetModels,
+  publicPostChat,
+} from './publicDemo';
+import { PUBLIC_SITE_MODE } from './runtimeMode';
+
 const configuredApiBase = import.meta.env.VITE_API_BASE_URL?.trim();
 const API_BASE = (configuredApiBase || '/api').replace(/\/$/, '');
 
@@ -26,6 +36,7 @@ export interface ChatResponseData {
     inputTokens: number;
     outputTokens: number;
   };
+  synthetic?: boolean;
 }
 
 export interface SessionResponse {
@@ -87,6 +98,9 @@ async function request<T>(
   path: string,
   options: RequestInit = {},
 ): Promise<T> {
+  if (PUBLIC_SITE_MODE) {
+    throw new Error('Network requests are disabled in the published synthetic preview.');
+  }
   const headers = new Headers(options.headers);
   headers.set('Content-Type', 'application/json');
 
@@ -111,6 +125,9 @@ export function postChat(
   config: Partial<InferenceParams>,
   modelId: string,
 ): Promise<ChatResponseData> {
+  if (PUBLIC_SITE_MODE) {
+    return publicPostChat(sessionId, message, config, modelId);
+  }
   return request<ChatResponseData>('/chat', {
     method: 'POST',
     body: JSON.stringify({ sessionId, message, config, modelId }),
@@ -118,10 +135,12 @@ export function postChat(
 }
 
 export function createSession(): Promise<SessionResponse> {
+  if (PUBLIC_SITE_MODE) return publicCreateSession();
   return request<SessionResponse>('/sessions', { method: 'POST' });
 }
 
 export function deleteSession(id: string): Promise<{ message: string }> {
+  if (PUBLIC_SITE_MODE) return publicDeleteSession();
   return request<{ message: string }>(
     `/sessions/${encodeURIComponent(id)}`,
     { method: 'DELETE' },
@@ -129,13 +148,16 @@ export function deleteSession(id: string): Promise<{ message: string }> {
 }
 
 export function getModels(): Promise<{ models: ModelInfo[] }> {
+  if (PUBLIC_SITE_MODE) return publicGetModels();
   return request<{ models: ModelInfo[] }>('/models');
 }
 
 export function getConfig(): Promise<ConfigResponse> {
+  if (PUBLIC_SITE_MODE) return publicGetConfig();
   return request<ConfigResponse>('/config');
 }
 
 export function getHealth(): Promise<HealthResponse> {
+  if (PUBLIC_SITE_MODE) return publicGetHealth();
   return request<HealthResponse>('/health');
 }

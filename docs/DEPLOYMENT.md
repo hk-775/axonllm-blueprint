@@ -1,5 +1,21 @@
 # Deployment
 
+## GitHub Pages preview
+
+The repository publishes the canonical React frontend in a dedicated static
+mode:
+
+```bash
+npm run build:public
+npm run validate:publication
+npm run test:public-site
+```
+
+The output is `frontend/dist-public` under the `/axonllm-blueprint/` base path.
+It is a clearly labeled synthetic preview and cannot invoke the API, Bedrock,
+authentication, WebSockets, or cloud resources. Do not use it as a production
+deployment.
+
 ## Local development
 
 Install dependencies and create `backend/.env`:
@@ -61,3 +77,6 @@ Blueprint hashes the verified identity before using it for session ownership and
 - add backup and recovery controls for any durable store
 - validate the image, SBOM, and provenance in the deployment pipeline
 - keep deployment actions outside Blueprint unless separately designed and approved
+
+The proposed AWS services diagram in `docs/assets` is a reference for this
+work. It is not backed by IaC or a running environment.

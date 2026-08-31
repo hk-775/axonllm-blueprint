@@ -1,12 +1,33 @@
 # AxonLLM Blueprint
 
+[![CI](https://github.com/hk-775/axonllm-blueprint/actions/workflows/ci.yml/badge.svg)](https://github.com/hk-775/axonllm-blueprint/actions/workflows/ci.yml)
+[![Project site](https://github.com/hk-775/axonllm-blueprint/actions/workflows/pages.yml/badge.svg)](https://hk-775.github.io/axonllm-blueprint/)
+
 AxonLLM Blueprint is an open-source infrastructure workbench powered by Amazon Bedrock. It helps engineers design cloud systems, generate Infrastructure as Code, review configurations, and troubleshoot failures while keeping deployment behind an explicit human gate.
 
 > Beta software. Blueprint produces advisory output. Review every recommendation and run native validation tools before deploying infrastructure.
 
+## Explore
+
+- [Published product site](https://hk-775.github.io/axonllm-blueprint/)
+- [Synthetic workbench](https://hk-775.github.io/axonllm-blueprint/#/workspace)
+- [Interactive architecture](https://hk-775.github.io/axonllm-blueprint/#/architecture)
+
+The published workbench uses deterministic browser-local scenarios. It makes no
+API, WebSocket, authentication, Bedrock, or other cloud requests. The real
+application remains the normal authenticated API deployment described below.
+
 ![AxonLLM Blueprint architecture](docs/assets/axonllm-blueprint-architecture.png)
 
 The editable diagram is available at [`docs/assets/axonllm-blueprint-architecture.drawio`](docs/assets/axonllm-blueprint-architecture.drawio).
+
+### Proposed AWS services reference
+
+![Proposed AxonLLM Blueprint AWS services reference architecture](docs/assets/axonllm-blueprint-aws-services-reference.png)
+
+This is a target production reference, not a deployed environment. The
+repository contains no AWS infrastructure-as-code. Download the
+[editable draw.io source](docs/assets/axonllm-blueprint-aws-services-reference.drawio).
 
 ## Capabilities
 
@@ -117,6 +138,17 @@ npm run verify
 
 The suite performs a secret-pattern scan, TypeScript checks, automated tests, and production builds for both applications. CI additionally verifies registry signatures, audits dependencies, generates CycloneDX SBOMs, scans the container, and runs CodeQL.
 
+Validate the complete publication package:
+
+```bash
+npm run verify:publication
+```
+
+This additionally builds the GitHub Pages mode, checks the normal/public
+boundary, verifies architecture artifacts, and exercises the landing,
+workbench, architecture animation, downloads, mobile layout, and prohibited
+network calls in Chrome.
+
 ## API
 
 | Method | Route | Purpose |
@@ -142,6 +174,8 @@ Dockerfile                Combined production image
 ## Contributing and security
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for development guidance. Report vulnerabilities through the repository's private security advisory flow as described in [SECURITY.md](SECURITY.md).
+For usage support and production boundaries, see [SUPPORT.md](SUPPORT.md) and
+[docs/PRODUCTION_READINESS.md](docs/PRODUCTION_READINESS.md).
 
 ## License
 

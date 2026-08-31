@@ -17,6 +17,7 @@ export interface ConfigPanelProps {
   value: BlueprintSettings;
   region: string;
   loading?: boolean;
+  synthetic?: boolean;
   onApply: (settings: BlueprintSettings) => void;
 }
 
@@ -57,6 +58,7 @@ export function ConfigPanel({
   value,
   region,
   loading = false,
+  synthetic = false,
   onApply,
 }: ConfigPanelProps) {
   const [modelId, setModelId] = useState(value.modelId);
@@ -113,7 +115,7 @@ export function ConfigPanel({
       <div className="runtime-card">
         <div>
           <span className="runtime-card__indicator" />
-          <span>Amazon Bedrock</span>
+          <span>{synthetic ? 'Synthetic model profile' : 'Amazon Bedrock'}</span>
         </div>
         <strong>{region || 'Loading region'}</strong>
       </div>
@@ -266,8 +268,9 @@ export function ConfigPanel({
           <path d="m7.5 10 1.7 1.7 3.6-4" />
         </svg>
         <p>
-          Model choices come from the server allowlist. Credentials stay in the
-          standard AWS credential chain.
+          {synthetic
+            ? 'This published profile is browser-local and does not invoke a model or cloud service.'
+            : 'Model choices come from the server allowlist. Credentials stay in the standard AWS credential chain.'}
         </p>
       </div>
     </aside>
